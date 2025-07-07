@@ -56,3 +56,8 @@ async def phone_menu(message: Message, state: FSMContext):
             await state.set_state(statuslar.age)
         else:
             await message.answer("Iltimos telefon raqamingiz togri formatda kiriting")
+
+def back():
+    keyboard = ReplyKeyboardBuilder()
+    keyboard.add(KeyboardButton(text="Orqaga"))
+    return keyboard.as_markup(resize_keyboard=True, input_field_placehodler="Yoshingizni kiriting")
