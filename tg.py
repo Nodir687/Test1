@@ -8,7 +8,7 @@ from aiogram.fsm.state import State, StatesGroup
 bot = Bot(token="8090500863:AAEBTD3Cqm0URRynfVskKaZYiQs_-1C6530")
 dp = Dispatcher()
 router = Router()
-
+prinT("HELLO")
 class statuslar(StatesGroup):
     name = State()
     phone = State()
