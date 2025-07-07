@@ -27,6 +27,27 @@ def telefon_keyboard():
 async def start_menu(message: Message, state: FSMContext):
     user_id = message.from_user.id
     await message.answer("Assalomu Aleykum bizning botga xush kelibsiz.\n<b>Iltimos, ismingizni kiriting</b>", parse_mode='HTML')
+
+@router.message(statuslar.age)
+async def age_menu(message: Message, state: FSMContext):
+    user_id = message.from_user.id
+    data = await state.get_data()
+    msg_text = (
+        f"Ismingiz - {data['name']}\n"
+        f"Telefon raqamingiz - {data['phone']}\n"
+        f"Yoshingiz - {message.text}"
+    )
+    if message.text == "Orqaga":
+        await message.answer("Telefon raqamingizni kiriting", reply_markup=telefon_keyboard())
+        await state.set_state(statuslar.phone)
+    elif message.text.isdigit():
+        await state.update_data(age=message.text)
+        await message.answer("Yoshingiz kiritildi.\nZayavka yaratildi")
+        await message.answer(msg_text)
+        await state.clear()
+    else:
+        await message.answer("Iltimos raqamda kiriting")
+
     await state.set_state(statuslar.name)
 
 
